@@ -6,6 +6,7 @@ COPY . .
 
 RUN npm run build
 # Serve Application using Nginx Server
-FROM nginx:alpine
+FROM nginx:latest AS ngi
 COPY --from=build /app/dist/fe-demolibrary/ /usr/share/nginx/html
+COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 EXPOSE 80
