@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SecretComponent } from './secret.component';
+import { UserBooksComponent } from './user-books.component';
 
-describe('SecretComponent', () => {
-  let component: SecretComponent;
-  let fixture: ComponentFixture<SecretComponent>;
+describe('UserBooksComponent', () => {
+  let component: UserBooksComponent;
+  let fixture: ComponentFixture<UserBooksComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SecretComponent]
+      declarations: [UserBooksComponent]
     });
-    fixture = TestBed.createComponent(SecretComponent);
+    fixture = TestBed.createComponent(UserBooksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

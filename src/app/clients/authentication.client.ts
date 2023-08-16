@@ -1,36 +1,35 @@
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-@Injectable({
+
+  @Injectable({
     providedIn: 'root',
 })
 export class AuthenticationClient {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+     }
 
-    public login(username: string, password: string): Observable<string> {
-        return this.http.post(
-            environment.apiUrl + '/user/login',
-            {
-                username: username,
-                password: password,
-            },
-            { responseType: 'text' }
-        );
+    public login(email: string): Observable<any> {
+        const httpHeaders = new HttpHeaders({
+            'Access-Control-Allow-Origin': "*",
+            "Content-Type": "application/json",
+            "Access-Control-Expose-Headers": "Content-Length"}); 
+        console.log("INTESTATIONE: " + JSON.stringify(httpHeaders))
+        return this.http.post(environment.apiUrl + '/users/login', { email: email }, {
+            headers: httpHeaders,
+            observe: 'response'
+        });
     }
 
     public register(
-        username: string,
         email: string,
-        password: string
     ): Observable<string> {
         return this.http.post(
             environment.apiUrl + '/user/register',
             {
-                username: username,
                 email: email,
-                password: password,
             },
             { responseType: 'text' }
         );
