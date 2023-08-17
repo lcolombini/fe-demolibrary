@@ -3,6 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { UserClient } from '../clients/user.client';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-books',
@@ -20,7 +21,8 @@ export class UserBooksComponent implements OnInit {
 
     constructor(
         private authenticationService: AuthenticationService,
-        private userClient: UserClient
+        private userClient: UserClient,
+        private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -56,6 +58,7 @@ export class UserBooksComponent implements OnInit {
 
     public bookDetails(element:any) {
         alert("Button is clicked");
+        this.router.navigate(['/book/details'])
         console.log(element);
     }
 }

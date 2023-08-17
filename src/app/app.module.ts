@@ -13,12 +13,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserBooksComponent } from './user-books/user-books.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    UserBooksComponent
+    UserBooksComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule,
