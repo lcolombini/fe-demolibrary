@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { UserClient } from '../clients/user.client';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-user-books',
@@ -11,18 +12,23 @@ import { MatTableDataSource } from '@angular/material/table';
 export class UserBooksComponent implements OnInit {
 
     books:BookInterface[] = []
+    username:any = ""
     displayedColumns: string[] = ['author', 'title', 'readingsNumber',];
 
     public dataSource: MatTableDataSource<BookInterface>;
+    public loading$ = new Subject<boolean>();
 
     constructor(
         private authenticationService: AuthenticationService,
         private userClient: UserClient
     ) { }
 
-    ngOnInit(): void { 
+    ngOnInit(): void {
+        this.loading$.next(true);
+        const name = this.authenticationService.getUserName()
         const userId = this.authenticationService.getUserId()
         this.getBookList(userId);
+        this.username = name
     }
 
     logout(): void {

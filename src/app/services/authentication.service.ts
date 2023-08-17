@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 export class AuthenticationService {
 
     private userIdKey = 'userId';
+    private userNameKey = 'userName';
 
     constructor(
         private authenticationClient: AuthenticationClient,
@@ -17,13 +18,16 @@ export class AuthenticationService {
     public login(email: string): void {
         this.authenticationClient.login(email).subscribe((res) => {
             const userId = (JSON.parse(res)['user']['id'])
+            const userName = (JSON.parse(res)['user']['firstName'])
             localStorage.setItem(this.userIdKey, userId);
+            localStorage.setItem(this.userNameKey, userName);
             this.router.navigate(['/']);
         });
     }
 
     public logout() {
         localStorage.removeItem(this.userIdKey);
+        localStorage.removeItem(this.userNameKey);
         this.router.navigate(['/login']);
     }
 
@@ -34,5 +38,8 @@ export class AuthenticationService {
 
     public getUserId(): string | null {
         return this.isLoggedIn() ? localStorage.getItem(this.userIdKey) : null;
+    }
+    public getUserName(): string | null {
+        return this.isLoggedIn() ? localStorage.getItem(this.userNameKey) : null;
     }
 }
