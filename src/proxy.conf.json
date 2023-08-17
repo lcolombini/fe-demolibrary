@@ -4,5 +4,12 @@
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
+    },
+
+    "/users/*/books": {
+        "target": "http://localhost:3000",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
     }
 }
