@@ -11,6 +11,7 @@ import { FormsModule,ReactiveFormsModule}  from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { UserBooksComponent } from './user-books/user-books.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UserBooksComponent } from './user-books/user-books.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule 
+    FlexLayoutModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
