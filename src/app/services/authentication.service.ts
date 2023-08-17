@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AuthenticationService {
 
-    private tokenKey = 'token';
+    private userIdKey = 'userId';
 
     constructor(
         private authenticationClient: AuthenticationClient,
@@ -15,31 +15,24 @@ export class AuthenticationService {
     ) { }
 
     public login(email: string): void {
-        this.authenticationClient.login(email).subscribe((token) => {
-            localStorage.setItem(this.tokenKey, token);
+        this.authenticationClient.login(email).subscribe((res) => {
+            const userId = (JSON.parse(res)['user']['id'])
+            localStorage.setItem(this.userIdKey, userId);
             this.router.navigate(['/']);
         });
     }
-    public register(email: string): void {
-        this.authenticationClient
-            .register(email)
-            .subscribe((token) => {
-                localStorage.setItem(this.tokenKey, token);
-                this.router.navigate(['/']);
-            });
-    }
 
     public logout() {
-        localStorage.removeItem(this.tokenKey);
+        localStorage.removeItem(this.userIdKey);
         this.router.navigate(['/login']);
     }
 
     public isLoggedIn(): boolean {
-        let token = localStorage.getItem(this.tokenKey);
-        return token != null && token.length > 0;
+        let userId = localStorage.getItem(this.userIdKey);
+        return userId != null && userId.length > 0;
     }
 
-    public getToken(): string | null {
-        return this.isLoggedIn() ? localStorage.getItem(this.tokenKey) : null;
+    public getUserId(): string | null {
+        return this.isLoggedIn() ? localStorage.getItem(this.userIdKey) : null;
     }
 }

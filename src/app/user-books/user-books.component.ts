@@ -13,9 +13,15 @@ export class UserBooksComponent implements OnInit {
         private authenticationService: AuthenticationService,
     ) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void { 
+        console.log("PROVA DI CONNESSIONE ONINIT")
+    }
 
     logout(): void {
         this.authenticationService.logout();
+    }
+
+    public onSubmit() {
+        this.logout()
     }
 }
