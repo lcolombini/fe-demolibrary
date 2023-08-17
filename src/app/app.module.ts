@@ -14,6 +14,7 @@ import { UserBooksComponent } from './user-books/user-books.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BookDetailComponent } from './book-detail/book-detail.component';
+import { BookService } from './services/book.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
     MatTableModule,
     MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [BookService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

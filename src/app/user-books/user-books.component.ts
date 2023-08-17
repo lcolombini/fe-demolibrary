@@ -4,6 +4,7 @@ import { UserClient } from '../clients/user.client';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { BookService } from '../services/book.service';
 
 @Component({
   selector: 'app-user-books',
@@ -21,6 +22,7 @@ export class UserBooksComponent implements OnInit {
 
     constructor(
         private authenticationService: AuthenticationService,
+        private bookService:BookService,
         private userClient: UserClient,
         private router: Router
     ) { }
@@ -30,7 +32,10 @@ export class UserBooksComponent implements OnInit {
         const name = this.authenticationService.getUserName()
         const userId = this.authenticationService.getUserId()
         this.getBookList(userId);
-        this.username = name
+        this.username = name;
+        this.bookService.selectedBook$.subscribe((value) => {
+            this.bookService.selectedBook$= value;
+        })
     }
 
     logout(): void {
@@ -56,10 +61,8 @@ export class UserBooksComponent implements OnInit {
         }
     }
 
-    public bookDetails(element:any) {
-        alert("Button is clicked");
-        this.router.navigate(['/book/details'])
-        console.log(element);
+    public onBookSelected(book:any) {
+        this.bookService.setBook(book)
     }
 }
 
