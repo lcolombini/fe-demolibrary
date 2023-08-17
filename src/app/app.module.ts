@@ -9,14 +9,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule,ReactiveFormsModule}  from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SecretComponent } from './secret/secret.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UserBooksComponent } from './user-books/user-books.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SecretComponent
+    UserBooksComponent
   ],
   imports: [
     BrowserModule,
