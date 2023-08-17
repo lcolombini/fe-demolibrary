@@ -1,5 +1,4 @@
-import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -13,17 +12,5 @@ export class AuthenticationClient {
 
     public login(email: string): Observable<string> {
         return this.http.post('/users/login', { email: email }, {responseType: 'text',});
-    }
-
-    public register(
-        email: string,
-    ): Observable<string> {
-        return this.http.post(
-            environment.apiUrl + '/user/register',
-            {
-                email: email,
-            },
-            { responseType: 'text' }
-        );
     }
 }
