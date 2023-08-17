@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
-import { Observable } from 'rxjs';
 import { UserClient } from '../clients/user.client';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-user-books',
@@ -11,6 +11,9 @@ import { UserClient } from '../clients/user.client';
 export class UserBooksComponent implements OnInit {
 
     books:BookInterface[] = []
+    displayedColumns: string[] = ['author', 'title', 'readingsNumber',];
+
+    public dataSource: MatTableDataSource<BookInterface>;
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -36,7 +39,7 @@ export class UserBooksComponent implements OnInit {
             this.userClient.bookList(userId).subscribe((res) => {
                 const parsed = JSON.stringify(res)
                 this.books = JSON.parse(parsed)["user"]["Books"] as BookInterface[]
-                console.log("TIPO RITORNATO: " + typeof this.books)
+                this.dataSource = new MatTableDataSource<BookInterface>(this.books);
 
             });
         } catch (error) {
