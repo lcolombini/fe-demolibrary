@@ -13,7 +13,7 @@ export class UserBooksComponent implements OnInit {
 
     books:BookInterface[] = []
     username:any = ""
-    displayedColumns: string[] = ['author', 'title', 'readingsNumber',];
+    displayedColumns: string[] = ['author', 'title', 'readingsNumber','details'];
 
     public dataSource: MatTableDataSource<BookInterface>;
     public loading$ = new Subject<boolean>();
@@ -52,6 +52,11 @@ export class UserBooksComponent implements OnInit {
             console.log(error)
             throw error
         }
+    }
+
+    public bookDetails(element:any) {
+        alert("Button is clicked");
+        console.log(element);
     }
 }
 
