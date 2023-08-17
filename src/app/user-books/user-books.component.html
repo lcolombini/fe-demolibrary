@@ -14,6 +14,11 @@
             <tr>
                 <th scope="col">Author</th>
                 <th scope="col">Title</th>
+                <th scope="col">Plot</th>
+                <th scope="col">Isbn</th>
+                <th scope="col">Date added</th>
+                <th scope="col">Number of readings</th>
+                <th scope="col">Cancellation date</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +26,11 @@
                 <tr>
                     <td>{{ book.author }}</td>
                     <td>{{ book.title }}</td>
+                    <td>{{ book.plot }}</td>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.dateAdded | date:'short':'IST' }}</td>
+                    <td>{{ book.readingsNumber }}</td>
+                    <td>{{ book.cancellationDate | date:'short':'IST'}}</td>
                 </tr>
             </ng-container>
         </tbody>
