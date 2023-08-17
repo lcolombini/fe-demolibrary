@@ -8,3 +8,21 @@
         </mat-card-actions>
     </mat-card>
 </div>
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Author</th>
+                <th scope="col">Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let book of books">
+                <tr>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.title }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
