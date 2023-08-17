@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Book } from '../interfaces/book';
 
 @Injectable()
 export class BookService {
@@ -9,10 +10,12 @@ export class BookService {
 
   constructor() { }
 
-  setBook(book:any)
+  setBook(book:Book)
   {
     this.book$.next(book)
-    console.log(this.book$.value)
   }
-
+  getBook():Book
+  {
+    return this.book$.value as Book
+  }
 }

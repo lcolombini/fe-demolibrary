@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { BookService } from '../services/book.service';
+import { Book } from '../interfaces/book';
 
 @Component({
   selector: 'app-user-books',
@@ -13,11 +14,11 @@ import { BookService } from '../services/book.service';
 })
 export class UserBooksComponent implements OnInit {
 
-    books:BookInterface[] = []
+    books:Book[] = []
     username:any = ""
     displayedColumns: string[] = ['author', 'title', 'readingsNumber','details'];
 
-    public dataSource: MatTableDataSource<BookInterface>;
+    public dataSource: MatTableDataSource<Book>;
     public loading$ = new Subject<boolean>();
 
     constructor(
@@ -51,8 +52,8 @@ export class UserBooksComponent implements OnInit {
         try {
             this.userClient.bookList(userId).subscribe((res) => {
                 const parsed = JSON.stringify(res)
-                this.books = JSON.parse(parsed)["user"]["Books"] as BookInterface[]
-                this.dataSource = new MatTableDataSource<BookInterface>(this.books);
+                this.books = JSON.parse(parsed)["user"]["Books"] as Book[]
+                this.dataSource = new MatTableDataSource<Book>(this.books);
 
             });
         } catch (error) {
@@ -63,19 +64,6 @@ export class UserBooksComponent implements OnInit {
 
     public onBookSelected(book:any) {
         this.bookService.setBook(book)
+        this.router.navigate(['/book/details'])
     }
-}
-
-export interface BookInterface {
-    id: number,
-    title: string,
-    author: string,
-    isbn: string,
-    plot: string,
-    readingsNumber: number,
-    dateAdded: string,
-    cancellationDate: string,
-    createdAt: string,
-    updatedAt: string,
-    userId: number
 }
