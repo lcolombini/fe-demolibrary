@@ -11,5 +11,19 @@
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
+    },
+
+    "/books/increaseReadings": {
+        "target": "http://localhost:3000",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    
+    "/books/removeFromCatalog": {
+        "target": "http://localhost:3000",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
     }
 }
