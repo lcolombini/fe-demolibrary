@@ -22,8 +22,8 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-raised-button color="accent" (click)="actionRead(book)">READ</button>
-            <button mat-raised-button color="primary" (click)="actionRemove(book)">REMOVE FROM LIBRARY</button>
+            <button mat-raised-button color="accent" [disabled]="isDisabled(book)" (click)="actionRead(book)">READ</button>
+            <button mat-raised-button color="primary"  [disabled]="isDisabled(book)" (click)="actionRemove(book)">REMOVE FROM LIBRARY</button>
         </mat-card-actions>
     </mat-card>
 

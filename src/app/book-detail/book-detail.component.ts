@@ -53,4 +53,10 @@ export class BookDetailComponent implements OnInit{
         }
     }
 
+    public isDisabled(book:any):boolean
+    {
+        const bookToRead = book as Book
+        return bookToRead.cancellationDate !== null
+    }
+
 }
