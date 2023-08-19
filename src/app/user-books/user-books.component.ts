@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { UserClient } from '../clients/user.client';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { BookService } from '../services/book.service';
 import { Book } from '../interfaces/book';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-user-books',
@@ -19,7 +20,10 @@ export class UserBooksComponent implements OnInit {
     displayedColumns: string[] = ['author', 'title', 'readingsNumber','cancellationDate','details'];
 
     public dataSource: MatTableDataSource<Book>;
+
     public loading$ = new Subject<boolean>();
+
+    @ViewChild('bookTbSort') bookTbSort = new MatSort();
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -38,6 +42,9 @@ export class UserBooksComponent implements OnInit {
             this.bookService.selectedBook$= value;
         })
     }
+    ngAfterViewInit() {
+        this.dataSource.sort = this.bookTbSort;
+    }
 
     logout(): void {
         this.authenticationService.logout();
@@ -54,7 +61,7 @@ export class UserBooksComponent implements OnInit {
                 const parsed = JSON.stringify(res)
                 this.books = JSON.parse(parsed)["user"]["Books"] as Book[]
                 this.dataSource = new MatTableDataSource<Book>(this.books);
-
+                this.dataSource.sort = this.bookTbSort;
             });
         } catch (error) {
             console.log(error)
@@ -63,6 +70,8 @@ export class UserBooksComponent implements OnInit {
     }
 
     public onBookSelected(book:any) {
+        sessionStorage.removeItem('book');
+        sessionStorage.clear(); 
         this.bookService.setBook(book)
         this.router.navigate(['/book/details'])
     }

@@ -8,38 +8,39 @@
         </mat-card-actions>
     </mat-card>
 </div>
-<div class="spinner-container" *ngIf="loading$ | async">
-    <mat-spinner></mat-spinner>
-</div>
+
 <div class="container mt-5">
-    <table mat-table [dataSource]="dataSource" matSort>
-    
+    <div class="spinner-container" *ngIf="loading$ | async">
+        <mat-spinner></mat-spinner>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort #bookTbSort="matSort">
+
     <ng-container matColumnDef="author">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
-        <td mat-cell *matCellDef="let element" class="left-text">{{ element.author }}</td>
+        <td mat-cell *matCellDef="let book" class="left-text">{{ book.author }}</td>
     </ng-container>
 
     <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
-    <td mat-cell *matCellDef="let element" class="left-text">{{ element.title }}</td>
+    <td mat-cell *matCellDef="let book" class="left-text">{{ book.title }}</td>
     </ng-container>
 
     <ng-container matColumnDef="readingsNumber">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Number of readings</th>
-        <td mat-cell *matCellDef="let element" class="left-text">{{ element.readingsNumber }}</td>
+        <td mat-cell *matCellDef="let book" class="left-text">{{ book.readingsNumber }}</td>
     </ng-container>
 
     <ng-container matColumnDef="cancellationDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Cancellation date</th>
-        <td mat-cell *matCellDef="let element" class="left-text">{{ element.cancellationDate | date:'medium'}}</td>
+        <td mat-cell *matCellDef="let book" class="left-text">{{ book.cancellationDate | date:'medium'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="details">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-        <td mat-cell *matCellDef="let element" class="left-text"><button mat-raised-button (click)="onBookSelected(element)">Details</button></td>
+        <td mat-cell *matCellDef="let book" class="left-text"><button mat-raised-button (click)="onBookSelected(book)">Details</button></td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 </div>

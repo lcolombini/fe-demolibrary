@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookService } from './services/book.service';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { BookService } from './services/book.service';
     FlexLayoutModule,
     MatTableModule,
     MatProgressSpinnerModule,
-    MatListModule
+    MatListModule,
+    MatSortModule
   ],
   providers: [BookService],
   bootstrap: [AppComponent]
