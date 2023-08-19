@@ -44,7 +44,6 @@ export class UserBooksComponent implements OnInit {
     }
     ngAfterViewInit() {
         this.dataSource.sort = this.bookTbSort;
-
     }
 
     logout(): void {
@@ -71,6 +70,8 @@ export class UserBooksComponent implements OnInit {
     }
 
     public onBookSelected(book:any) {
+        sessionStorage.removeItem('book');
+        sessionStorage.clear(); 
         this.bookService.setBook(book)
         this.router.navigate(['/book/details'])
     }

@@ -21,7 +21,17 @@ export class BookDetailComponent implements OnInit{
         private router: Router
     ){}
     ngOnInit(): void {
-        this.book = this.bookService.getBook()
+        const bookInStorage = sessionStorage.getItem('book');
+        if(bookInStorage != null)
+        {
+            this.book = JSON.parse(bookInStorage) as Book
+        }
+        else {
+            this.book = this.bookService.getBook()
+            sessionStorage.setItem('book', JSON.stringify(this.book))
+        }
+
+        
     }
 
     public actionRead(book:any)

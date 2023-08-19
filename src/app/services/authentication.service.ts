@@ -26,6 +26,8 @@ export class AuthenticationService {
     }
 
     public logout() {
+        sessionStorage.removeItem('book');
+        sessionStorage.clear();
         localStorage.removeItem(this.userIdKey);
         localStorage.removeItem(this.userNameKey);
         this.router.navigate(['/login']);
