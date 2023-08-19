@@ -3,6 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { BookService } from '../services/book.service';
 import { Book } from '../interfaces/book';
 import { BookClient } from '../clients/book.client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-detail',
@@ -16,7 +17,8 @@ export class BookDetailComponent implements OnInit{
     constructor(
         private authenticationService: AuthenticationService,
         private bookService: BookService,
-        private bookClient: BookClient
+        private bookClient: BookClient,
+        private router: Router
     ){}
     ngOnInit(): void {
         this.book = this.bookService.getBook()
@@ -24,13 +26,13 @@ export class BookDetailComponent implements OnInit{
 
     public actionRead(book:any)
     {
-        console.log("Read action called!")
         const bookToRead = book as Book
         const userId = this.authenticationService.getUserId()
 
         try {
             this.bookClient.read(bookToRead.id, Number(userId)).subscribe((res) => {
-                console.log(res)
+                alert("Book Readed!");
+                this.router.navigate(['/'])
             });
         } catch (error) {
             throw error
@@ -39,12 +41,12 @@ export class BookDetailComponent implements OnInit{
 
     public actionRemove(book:any)
     {
-        console.log("Remove action called!")
         const bookToRead = book as Book
         const userId = this.authenticationService.getUserId()
         try {
             this.bookClient.remove(bookToRead.id, Number(userId)).subscribe((res) => {
-                console.log(res)
+                alert("Book Removed! You will no longer be able to add more reads to this book ;-(");
+                this.router.navigate(['/'])
             });
         } catch (error) {
             throw error

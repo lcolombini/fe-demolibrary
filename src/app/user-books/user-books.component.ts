@@ -16,7 +16,7 @@ export class UserBooksComponent implements OnInit {
 
     books:Book[] = []
     username:any = ""
-    displayedColumns: string[] = ['author', 'title', 'readingsNumber','details'];
+    displayedColumns: string[] = ['author', 'title', 'readingsNumber','cancellationDate','details'];
 
     public dataSource: MatTableDataSource<Book>;
     public loading$ = new Subject<boolean>();
