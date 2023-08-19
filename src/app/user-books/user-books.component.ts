@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { UserClient } from '../clients/user.client';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { BookService } from '../services/book.service';
+import { Book } from '../interfaces/book';
 
 @Component({
   selector: 'app-user-books',
@@ -10,19 +14,29 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class UserBooksComponent implements OnInit {
 
-    books:BookInterface[] = []
-    displayedColumns: string[] = ['author', 'title', 'readingsNumber',];
+    books:Book[] = []
+    username:any = ""
+    displayedColumns: string[] = ['author', 'title', 'readingsNumber','cancellationDate','details'];
 
-    public dataSource: MatTableDataSource<BookInterface>;
+    public dataSource: MatTableDataSource<Book>;
+    public loading$ = new Subject<boolean>();
 
     constructor(
         private authenticationService: AuthenticationService,
-        private userClient: UserClient
+        private bookService:BookService,
+        private userClient: UserClient,
+        private router: Router
     ) { }
 
-    ngOnInit(): void { 
+    ngOnInit(): void {
+        this.loading$.next(true);
+        const name = this.authenticationService.getUserName()
         const userId = this.authenticationService.getUserId()
         this.getBookList(userId);
+        this.username = name;
+        this.bookService.selectedBook$.subscribe((value) => {
+            this.bookService.selectedBook$= value;
+        })
     }
 
     logout(): void {
@@ -38,8 +52,8 @@ export class UserBooksComponent implements OnInit {
         try {
             this.userClient.bookList(userId).subscribe((res) => {
                 const parsed = JSON.stringify(res)
-                this.books = JSON.parse(parsed)["user"]["Books"] as BookInterface[]
-                this.dataSource = new MatTableDataSource<BookInterface>(this.books);
+                this.books = JSON.parse(parsed)["user"]["Books"] as Book[]
+                this.dataSource = new MatTableDataSource<Book>(this.books);
 
             });
         } catch (error) {
@@ -47,18 +61,9 @@ export class UserBooksComponent implements OnInit {
             throw error
         }
     }
-}
 
-export interface BookInterface {
-    id: number,
-    title: string,
-    author: string,
-    isbn: string,
-    plot: string,
-    readingsNumber: number,
-    dateAdded: string,
-    cancellationDate: string,
-    createdAt: string,
-    updatedAt: string,
-    userId: number
+    public onBookSelected(book:any) {
+        this.bookService.setBook(book)
+        this.router.navigate(['/book/details'])
+    }
 }
