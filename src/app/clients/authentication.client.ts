@@ -11,6 +11,6 @@ export class AuthenticationClient {
      }
 
     public login(email: string): Observable<string> {
-        return this.http.post('/users/login', { email: email }, {responseType: 'text'});
+        return this.http.post('/api/v1/users/login', { email: email }, {responseType: 'text'});
     }
 }

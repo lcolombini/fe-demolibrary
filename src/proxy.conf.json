@@ -1,27 +1,27 @@
 {
-    "/users/login": {
-        "target": "http://localhost:3000",
+    "/api/v1/users/login": {
+        "target": "http://localhost:49170",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
 
-    "/users/*/books": {
-        "target": "http://localhost:3000",
+    "/api/v1/users/*/books": {
+        "target": "http://localhost:49170",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
 
-    "/books/increaseReadings": {
-        "target": "http://localhost:3000",
+    "/api/v1/books/increaseReadings": {
+        "target": "http://localhost:49170",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
     
-    "/books/removeFromCatalog": {
-        "target": "http://localhost:3000",
+    "/api/v1/books/removeFromCatalog": {
+        "target": "http://localhost:49170",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"

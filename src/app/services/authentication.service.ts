@@ -17,10 +17,16 @@ export class AuthenticationService {
 
     public login(email: string): void {
         this.authenticationClient.login(email).subscribe((res) => {
-            const userId = (JSON.parse(res)['user']['id'])
-            const userName = (JSON.parse(res)['user']['firstName'])
-            localStorage.setItem(this.userIdKey, userId);
-            localStorage.setItem(this.userNameKey, userName);
+            if (JSON.parse(res)['user'] == null) {
+               alert("Utente non trovato! Controlla la mail inserita.")
+            }
+            else {
+                const userId = (JSON.parse(res)['user']['id'])
+                const userName = (JSON.parse(res)['user']['firstName'])
+                localStorage.setItem(this.userIdKey, userId);
+                localStorage.setItem(this.userNameKey, userName);
+            }
+            
             this.router.navigate(['/']);
         });
     }

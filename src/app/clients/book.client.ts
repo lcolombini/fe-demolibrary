@@ -11,10 +11,10 @@ export class BookClient {
     }
 
     public read(bookId: number, userId: number): Observable<any> {
-        return this.http.put('/books/increaseReadings', { bookId:bookId, userId:userId }, { responseType: 'text' });
+        return this.http.put('/api/v1/books/increaseReadings', { bookId:bookId, userId:userId }, { responseType: 'text' });
     }
 
     public remove(bookId: number, userId: number): Observable<any> {
-        return this.http.put('/books/removeFromCatalog', { bookId: bookId, userId: userId }, { responseType: 'text' });
+        return this.http.put('/api/v1/books/removeFromCatalog', { bookId: bookId, userId: userId }, { responseType: 'text' });
     }
 }
